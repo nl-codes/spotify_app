@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_app/screens/signup/widget/signup_header.dart';
-import 'package:spotify_app/widgets/button/green_button.dart';
+import 'package:spotify_app/screens/login/widget/login_button.dart';
+import 'package:spotify_app/widgets/header.dart';
+import 'package:spotify_app/widgets/custom_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -12,16 +13,30 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 8.0, 16, 0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SignupHeader(
-                text: "What's your email?",
-                description: "You'll need to confirm this email later",
+              Header(pageTitle: "Log into your account"),
+              SizedBox(height: 40),
+              Text(
+                "Email",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
+              CustomTextfield(),
+              SizedBox(height: 20),
+              Text(
+                "Password",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              CustomTextfield(),
               SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GreenButton(isActive: true, gotoPath: '/signup/password'),
+                  GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, '/choose/artists'),
+                    child: LoginButton(isActive: true),
+                  ),
                 ],
               ),
             ],
