@@ -30,7 +30,10 @@ class SplashScreen extends StatelessWidget {
                   Text("Millions of Songs.", style: TextStyle(fontSize: 24)),
                   Text("Free on Spotify.", style: TextStyle(fontSize: 24)),
                   SizedBox(height: 16),
-                  SignupButton(),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/signup/email'),
+                    child: SignupButton(),
+                  ),
                   SizedBox(height: 16),
                   ContinueWithBrandButton(
                     brand: "Google",
@@ -47,9 +50,15 @@ class SplashScreen extends StatelessWidget {
                     iconPath: "assets/images/apple_icon.webp",
                   ),
                   SizedBox(height: 16),
-                  Text(
-                    "Log in",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/login'),
+                    child: Text(
+                      "Log in",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ],
               ),
