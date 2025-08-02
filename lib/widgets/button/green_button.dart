@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class GreenButton extends StatelessWidget {
+  final String buttonName;
   final bool isActive;
   final String gotoPath;
+
   const GreenButton({
+    this.buttonName = "Next",
     required this.gotoPath,
     required this.isActive,
     super.key,
@@ -29,7 +32,7 @@ class GreenButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
           alignment: Alignment.center,
           child: Text(
-            'Next',
+            buttonName,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,

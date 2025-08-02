@@ -1,19 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:spotify_app/core/network/backend_url.dart';
 
-class ArtistAvatarService {
+class MixedAvatarService {
   final Dio _dio = Dio();
 
-  ArtistAvatarService() {
-    _dio.options.baseUrl = '${BackendUrl().backendUrl}api/artists';
+  MixedAvatarService() {
+    _dio.options.baseUrl = '${BackendUrl().backendUrl}api';
     _dio.options.headers = {'Accept': 'application/json'};
   }
-  Future<Response> fetchArtistAvatar() async {
+  Future<Response> fetchMixedAvatar() async {
     try {
       final Response response = await _dio.get('/');
       return response;
     } catch (e) {
-      throw Exception("❌ Error fetching artist: $e");
+      throw Exception("❌ Error fetching mixed avatars: $e");
     }
   }
 }

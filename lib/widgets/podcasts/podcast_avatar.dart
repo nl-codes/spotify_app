@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ArtistsAvatar extends StatelessWidget {
+class PodcastAvatar extends StatelessWidget {
   final String imageURL;
   final String fullName;
-  const ArtistsAvatar({
+  const PodcastAvatar({
     super.key,
     required this.imageURL,
     required this.fullName,
@@ -12,9 +12,17 @@ class ArtistsAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        CircleAvatar(radius: 40, foregroundImage: NetworkImage(imageURL)),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.network(
+            imageURL,
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
+        ),
         SizedBox(height: 16),
         SizedBox(
           width: 80,

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:spotify_app/screens/home/page/home_screen.dart';
+import 'package:spotify_app/screens/library/page/library_screen.dart';
 import 'package:spotify_app/screens/login/page/login_screen.dart';
-import 'package:spotify_app/screens/preference/artists/page/choose_artists.dart';
+import 'package:spotify_app/screens/preference/artists/page/choose_artists_screen.dart';
+import 'package:spotify_app/screens/preference/podcast/page/choose_podcast_screen.dart';
+import 'package:spotify_app/screens/search/page/search_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_email_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_name_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_password_screen.dart';
@@ -33,11 +37,19 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
+
         '/signup/email': (context) => SignupEmailScreen(),
         '/signup/password': (context) => SignupPasswordScreen(),
         '/signup/name': (context) => SignupNameScreen(),
+
         '/login': (context) => LoginScreen(),
-        '/choose/artists': (context) => ChooseArtists(),
+
+        '/choose/artists': (context) => ChooseArtistsScreen(),
+        '/choose/podcasts': (context) => ChoosePodcastScreen(),
+
+        '/home': (context) => HomeScreen(),
+        '/search': (context) => SearchScreen(),
+        '/library': (context) => LibraryScreen(),
       },
     );
   }

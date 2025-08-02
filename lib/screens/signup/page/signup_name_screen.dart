@@ -65,7 +65,13 @@ class SignupNameScreen extends StatelessWidget {
                 SizedBox(height: 120),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [_CreateAcccountButton(isActive: false)],
+                  children: [
+                    GestureDetector(
+                      onTap: () =>
+                          Navigator.pushNamed(context, '/choose/artists'),
+                      child: _CreateAcccountButton(isActive: false),
+                    ),
+                  ],
                 ),
               ],
             ),
