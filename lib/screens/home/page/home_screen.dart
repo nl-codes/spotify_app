@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/mixed_avatar_api_model.dart';
 import 'package:spotify_app/core/network/mixed_avatar_service.dart';
+import 'package:spotify_app/screens/home/widgets/editors_pick_row.dart';
 import 'package:spotify_app/screens/home/widgets/home_header.dart';
+import 'package:spotify_app/screens/home/widgets/jump_back_in_row.dart';
+import 'package:spotify_app/screens/home/widgets/now_playing_bar.dart';
 import 'package:spotify_app/screens/home/widgets/recently_played_row.dart';
-import 'package:spotify_app/screens/home/widgets/spotify_wrapper.dart';
+import 'package:spotify_app/screens/home/widgets/spotify_wrapped.dart';
 import 'package:spotify_app/widgets/footer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -64,11 +67,34 @@ class _HomeScreenState extends State<HomeScreen> {
                           RecentlyPlayedRow(
                             recentlyPlayedItems: _recentlyPlayedItems,
                           ),
+                          const SizedBox(height: 16),
                           SpotifyWrapper(),
+                          const SizedBox(height: 16),
+                          Text(
+                            "Editor's Pick",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          EditorsPickRow(),
+                          SizedBox(height: 16),
+                          Text(
+                            "Jump back in",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          JumpBackInRow(),
+                          const SizedBox(height: 16),
                         ],
                       ),
               ),
             ),
+            NowPlayingBar(),
             Footer(selectedTab: "home"),
           ],
         ),
