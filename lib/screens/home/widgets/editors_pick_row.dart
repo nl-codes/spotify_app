@@ -5,30 +5,36 @@ class EditorsPickRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> cardsData = [
+      {
+        "imageUrl":
+            "https://i.scdn.co/image/ab67706f0000000205ea78beb067ecbd2775fc89",
+        "description": "Ed Sheeran, Big Sean, Juice WRLD, Post Malone",
+      },
+      {
+        "imageUrl":
+            "https://epigram.org.uk/content/images/2023/09/Event-Horizon-IMDB.jpeg",
+        "description": "Mitski, Tame Impala, Glass Animals, Charli XCX",
+      },
+      {
+        "imageUrl":
+            "https://i.scdn.co/image/ab67706f0000000279ad582ea8f249f2df9553fa",
+        "description": "",
+      },
+    ];
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _Card(
-            imageUrl:
-                "https://i.scdn.co/image/ab67706f0000000205ea78beb067ecbd2775fc89",
-            description: "Ed Sheeran, Big Sean, Juice WRLD, Post Malone",
-          ),
-          SizedBox(width: 16),
-
-          _Card(
-            imageUrl:
-                "https://epigram.org.uk/content/images/2023/09/Event-Horizon-IMDB.jpeg",
-            description: "Mitski, Tame Impala, Glass Animals, Charli XCX",
-          ),
-          SizedBox(width: 16),
-
-          _Card(
-            imageUrl:
-                "https://i.scdn.co/image/ab67706f0000000279ad582ea8f249f2df9553fa",
-          ),
-        ],
+        children: cardsData.map((data) {
+          return Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: _Card(
+              imageUrl: data["imageUrl"]!,
+              description: data["description"],
+            ),
+          );
+        }).toList(),
       ),
     );
   }

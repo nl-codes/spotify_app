@@ -5,39 +5,46 @@ class JumpBackInRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> cardsData = [
+      {
+        "imageUrl":
+            "https://i.scdn.co/image/ab67616d0000b2739e81c165e5ec0802b8eb4e8a",
+        "title": "Mutu Dekhin (Raw)",
+        "author": "John Rai",
+      },
+      {
+        "imageUrl":
+            "https://i.scdn.co/image/ab67616d0000b27351c02a77d09dfcd53c8676d0",
+        "title": "Highway to Hell",
+        "author": "AC/DC",
+      },
+      {
+        "imageUrl":
+            "https://i.scdn.co/image/ab67616d0000b2737a9bf5f82e32d33d4503fe7b",
+        "title": "Hozier",
+        "author": "Hozier",
+      },
+      {
+        "imageUrl":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReLDpZFn-RgnPnIKVbaf1QcHqYedcgHjCxjw&s",
+        "title": "Strange Trails",
+        "author": "Lord Huron",
+      },
+    ];
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _Card(
-            imageUrl:
-                "https://i.scdn.co/image/ab67616d0000b2739e81c165e5ec0802b8eb4e8a",
-            title: "Mutu Dekhin (Raw)",
-            author: "John Rai",
-          ),
-          SizedBox(width: 16),
-          _Card(
-            imageUrl:
-                "https://i.scdn.co/image/ab67616d0000b27351c02a77d09dfcd53c8676d0",
-            title: "Highway to Hell",
-            author: "AC/DC",
-          ),
-          SizedBox(width: 16),
-          _Card(
-            imageUrl:
-                "https://i.scdn.co/image/ab67616d0000b2737a9bf5f82e32d33d4503fe7b",
-            title: "Hozier",
-            author: "Hozier",
-          ),
-          SizedBox(width: 16),
-          _Card(
-            imageUrl:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReLDpZFn-RgnPnIKVbaf1QcHqYedcgHjCxjw&s",
-            title: "Strange Trails",
-            author: "Lord Huron",
-          ),
-        ],
+        children: cardsData.map((data) {
+          return Padding(
+            padding: EdgeInsets.only(right: 16),
+            child: _Card(
+              imageUrl: data["imageUrl"]!,
+              title: data["title"]!,
+              author: data["author"]!,
+            ),
+          );
+        }).toList(),
       ),
     );
   }
