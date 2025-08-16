@@ -1,0 +1,103 @@
+import 'package:flutter/material.dart';
+import 'package:spotify_app/core/model/mixed_avatar_api_model.dart';
+import 'package:spotify_app/core/network/mixed_avatar_service.dart';
+import 'package:spotify_app/screens/root/home/widgets/editors_pick_row.dart';
+import 'package:spotify_app/screens/root/home/widgets/home_header.dart';
+import 'package:spotify_app/screens/root/home/widgets/jump_back_in_row.dart';
+import 'package:spotify_app/screens/root/home/widgets/now_playing_bar.dart';
+import 'package:spotify_app/screens/root/home/widgets/recently_played_row.dart';
+import 'package:spotify_app/screens/root/home/widgets/spotify_wrapped.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final MixedAvatarService _service = MixedAvatarService();
+  List<MixedAvatarApiModel> _recentlyPlayedItems = [];
+  bool _isLoading = true;
+  String _error = "";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchRecentlyPlayedItems();
+  }
+
+  Future<void> fetchRecentlyPlayedItems() async {
+    try {
+      final response = await _service.fetchMixedAvatar();
+      final data = response.data as List;
+      setState(() {
+        _recentlyPlayedItems = data
+            .map((json) => MixedAvatarApiModel.fromJson(json))
+            .toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16, 0),
+            child: HomeHeader(),
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 0, 16, 0),
+              child: _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : _error.isNotEmpty
+                  ? Center(child: Text(_error))
+                  : ListView(
+                      children: [
+                        RecentlyPlayedRow(
+                          recentlyPlayedItems: _recentlyPlayedItems,
+                        ),
+                        const SizedBox(height: 16),
+                        SpotifyWrapper(),
+                        const SizedBox(height: 16),
+                        Text(
+                          "Editor's Pick",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        EditorsPickRow(),
+                        SizedBox(height: 16),
+                        Text(
+                          "Jump back in",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        JumpBackInRow(),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+            ),
+          ),
+          NowPlayingBar(),
+        ],
+      ),
+    );
+  }
+}

@@ -33,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/home'),
+                    onTap: () => Navigator.pushNamed(context, '/root'),
                     child: LoginButton(isActive: true),
                   ),
                 ],
