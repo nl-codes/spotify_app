@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/home/widgets/now_playing_bar.dart';
+import 'package:spotify_app/screens/search/widget/genre_cards_list.dart';
 import 'package:spotify_app/screens/search/widget/search_header.dart';
 import 'package:spotify_app/widgets/custom_searchbar.dart';
 import 'package:spotify_app/widgets/footer.dart';
@@ -19,8 +20,9 @@ class SearchScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SearchHeader(),
-                    SizedBox(height: 16),
                     CustomSearchbar(hintText: "Artists, Songs, Playlists..."),
+                    SizedBox(height: 32),
+                    Expanded(child: GenreCardsList()),
                   ],
                 ),
               ),
