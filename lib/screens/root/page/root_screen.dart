@@ -28,11 +28,30 @@ class _RootScreenState extends State<RootScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.library_music),
+            icon: Icon(Icons.home, color: Colors.white54),
+            label: "Home",
+            activeIcon: Icon(Icons.home, color: Colors.white70),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search, color: Colors.white54),
+            label: "Search",
+            activeIcon: Icon(Icons.search, color: Colors.white70),
+          ),
+          BottomNavigationBarItem(
+            icon: Image.network(
+              "https://cdn-icons-png.flaticon.com/512/2908/2908601.png",
+              color: Colors.white54,
+              width: 24,
+              height: 24,
+            ),
+            activeIcon: Image.network(
+              "https://cdn-icons-png.flaticon.com/512/2908/2908601.png",
+              color: Colors.white70,
+              width: 24,
+              height: 24,
+            ),
             label: "Library",
           ),
         ],
