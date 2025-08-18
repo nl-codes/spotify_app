@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:spotify_app/utils/string_manipulate.dart';
 
 class LibraryFilterOptions extends StatefulWidget {
-  const LibraryFilterOptions({super.key});
+  final ValueChanged<FilterOption> onFilterSelected;
+  const LibraryFilterOptions({super.key, required this.onFilterSelected});
 
   @override
   State<LibraryFilterOptions> createState() => _LibraryFilterOptionsState();
 }
 
 class _LibraryFilterOptionsState extends State<LibraryFilterOptions> {
-  _FilterOption _selectedOption = _FilterOption.all;
+  FilterOption _selectedOption = FilterOption.all;
 
-  final List<_FilterOption> _options = [
-    _FilterOption.all,
-    _FilterOption.playlist,
-    _FilterOption.artists,
-    _FilterOption.albums,
-    _FilterOption.podcasts,
+  final List<FilterOption> _options = [
+    FilterOption.all,
+    FilterOption.songs,
+    FilterOption.artists,
+    FilterOption.albums,
+    FilterOption.podcasts,
   ];
 
   @override
@@ -29,7 +30,10 @@ class _LibraryFilterOptionsState extends State<LibraryFilterOptions> {
           child: _FilterCard(
             isSelected: isSelected,
             option: option,
-            onTap: () => setState(() => _selectedOption = option),
+            onTap: () {
+              setState(() => _selectedOption = option);
+              widget.onFilterSelected(option);
+            },
           ),
         );
       }).toList(),
@@ -37,11 +41,11 @@ class _LibraryFilterOptionsState extends State<LibraryFilterOptions> {
   }
 }
 
-enum _FilterOption { all, playlist, artists, albums, podcasts }
+enum FilterOption { all, songs, artists, albums, podcasts }
 
 class _FilterCard extends StatelessWidget {
   final bool isSelected;
-  final _FilterOption option;
+  final FilterOption option;
   final VoidCallback? onTap; // added to handle tap
   const _FilterCard({
     required this.isSelected,

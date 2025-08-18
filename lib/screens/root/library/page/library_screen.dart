@@ -15,6 +15,7 @@ class LibraryScreen extends StatefulWidget {
 }
 
 class _LibraryScreenState extends State<LibraryScreen> {
+  FilterOption _currentFilter = FilterOption.all;
   final LibraryService _libraryService = LibraryService();
   List<LibraryApiModel> _libraryCardLists = [];
   bool _isLoading = false;
@@ -61,7 +62,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       LibraryHeader(),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: LibraryFilterOptions(),
+                        child: LibraryFilterOptions(
+                          onFilterSelected: (filter) {
+                            setState(() {
+                              _currentFilter = filter;
+                            });
+                          },
+                        ),
                       ),
                       const SizedBox(height: 16),
 
@@ -70,6 +77,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                       LibraryCardCollection(
                         libraryCardLists: _libraryCardLists,
+                        currentFilter: _currentFilter,
                       ),
                     ],
                   ),
