@@ -30,11 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> fetchRecentlyPlayedItems() async {
     try {
       final response = await _service.fetchMixedAvatar();
-      final data = response.data as List;
+      final data = response.data as Map<String, dynamic>;
+
+      // Use the helper parser we built
+      final items = parseMixedResponse(data);
+
       setState(() {
-        _recentlyPlayedItems = data
-            .map((json) => MixedAvatarApiModel.fromJson(json))
-            .toList();
+        _recentlyPlayedItems = items;
         _isLoading = false;
       });
     } catch (e) {
@@ -99,5 +101,32 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  List<MixedAvatarApiModel> parseMixedResponse(Map<String, dynamic> response) {
+    List<MixedAvatarApiModel> items = [];
+
+    // parse artists
+    if (response['artists'] != null) {
+      for (var artist in response['artists']) {
+        items.add(MixedAvatarApiModel.fromJson(artist, "artist"));
+      }
+    }
+
+    // parse podcasts
+    if (response['podcasts'] != null) {
+      for (var podcast in response['podcasts']) {
+        items.add(MixedAvatarApiModel.fromJson(podcast, "podcast"));
+      }
+    }
+
+    // parse albums
+    if (response['albums'] != null) {
+      for (var album in response['albums']) {
+        items.add(MixedAvatarApiModel.fromJson(album, "album"));
+      }
+    }
+
+    return items;
   }
 }

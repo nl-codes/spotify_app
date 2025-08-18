@@ -1,67 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/core/model/library_api_model.dart';
+import 'package:spotify_app/core/network/library_service.dart';
 import 'package:spotify_app/screens/root/home/widgets/now_playing_bar.dart';
+import 'package:spotify_app/screens/root/library/widget/library_card_collection.dart';
 import 'package:spotify_app/screens/root/library/widget/library_filter_options.dart';
 import 'package:spotify_app/screens/root/library/widget/library_header.dart';
 import 'package:spotify_app/screens/root/library/widget/library_recently_played.dart';
-import 'package:spotify_app/screens/root/library/widget/spotify_default_cards.dart';
 
-class LibraryScreen extends StatelessWidget {
+class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> defaultCards = [
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/duhbs7hqv/image/upload/v1755334958/liked_icon_pvcs5o.jpg",
-        "title": "Liked Songs",
-        "description": "Playlist • 58 songs",
-      },
-      {
-        "imageUrl":
-            "https://res.cloudinary.com/duhbs7hqv/image/upload/v1755337450/new_episodes_icon_e169xd.png",
-        "title": "New Episodes",
-        "description": "Updated 2 days ago",
-      },
-    ];
+  State<LibraryScreen> createState() => _LibraryScreenState();
+}
 
+class _LibraryScreenState extends State<LibraryScreen> {
+  final LibraryService _libraryService = LibraryService();
+  List<LibraryApiModel> _libraryCardLists = [];
+  bool _isLoading = false;
+  String _error = "";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLibraryCardsData();
+  }
+
+  Future<void> fetchLibraryCardsData() async {
+    try {
+      final response = await _libraryService.fetchLibraryDetails();
+      final data = response.data as List;
+      setState(() {
+        _libraryCardLists = data
+            .map((json) => LibraryApiModel.fromJson(json))
+            .toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
-          LibraryHeader(),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(12, 8, 0, 0),
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: LibraryFilterOptions(),
+            child: _isLoading
+                ? Center(child: CircularProgressIndicator())
+                : _error.isNotEmpty
+                ? Center(child: Text(_error))
+                : ListView(
+                    padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                    children: [
+                      LibraryHeader(),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: LibraryFilterOptions(),
+                      ),
+                      const SizedBox(height: 16),
+
+                      LibraryRecentlyPlayed(),
+                      const SizedBox(height: 16),
+
+                      LibraryCardCollection(
+                        libraryCardLists: _libraryCardLists,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: LibraryRecentlyPlayed(),
-                  ),
-                  SizedBox(
-                    height: 194,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.all(16),
-                      itemCount: defaultCards.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 16),
-                      itemBuilder: (context, index) {
-                        final data = defaultCards[index];
-                        return SpotifyCard(
-                          imageUrl: data["imageUrl"]!,
-                          title: data["title"]!,
-                          description: data["description"]!,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
           NowPlayingBar(),
         ],

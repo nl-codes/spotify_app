@@ -1,19 +1,25 @@
 class MixedAvatarApiModel {
   final String imageURL;
-  final String fullName;
   final String type;
+  final String? fullName;
+  final String? title;
+  final String? artist;
 
   MixedAvatarApiModel({
-    required this.type,
     required this.imageURL,
-    required this.fullName,
+    required this.type,
+    this.fullName,
+    this.title,
+    this.artist,
   });
 
-  factory MixedAvatarApiModel.fromJson(Map<String, dynamic> json) {
+  factory MixedAvatarApiModel.fromJson(Map<String, dynamic> json, String type) {
     return MixedAvatarApiModel(
       imageURL: json['imageURL'],
+      type: type,
       fullName: json['fullName'],
-      type: json['type'],
+      title: json['title'],
+      artist: json['artist'],
     );
   }
 }

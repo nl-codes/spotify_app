@@ -7,6 +7,7 @@ class RecentlyPlayedRow extends StatelessWidget {
   final List<MixedAvatarApiModel> recentlyPlayedItems;
 
   const RecentlyPlayedRow({required this.recentlyPlayedItems, super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -14,11 +15,35 @@ class RecentlyPlayedRow extends StatelessWidget {
       child: Row(
         children: List.generate(recentlyPlayedItems.length, (index) {
           final item = recentlyPlayedItems[index];
-          final widget = item.type.toLowerCase() == "artist"
-              ? ArtistsAvatar(imageURL: item.imageURL, fullName: item.fullName)
-              : PodcastAvatar(imageURL: item.imageURL, fullName: item.fullName);
 
-          return Padding(padding: EdgeInsets.only(right: 24.0), child: widget);
+          Widget widget;
+          switch (item.type.toLowerCase()) {
+            case "artist":
+              widget = ArtistsAvatar(
+                imageURL: item.imageURL,
+                fullName: item.fullName ?? "",
+              );
+              break;
+            case "podcast":
+              widget = PodcastAvatar(
+                imageURL: item.imageURL,
+                fullName: item.fullName ?? "",
+              );
+              break;
+            case "album":
+              widget = PodcastAvatar(
+                imageURL: item.imageURL,
+                fullName: item.title ?? "",
+              );
+              break;
+            default:
+              widget = const SizedBox();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.only(right: 24.0),
+            child: widget,
+          );
         }),
       ),
     );
