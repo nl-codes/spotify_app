@@ -53,7 +53,7 @@ class _ChoosePodcastScreenState extends State<ChoosePodcastScreen> {
                 children: [
                   Header(pageTitle: "Choose three or more artists you like"),
                   SizedBox(height: 20),
-                  CustomSearchbar(),
+                  CustomSearchbar(hintText: "Search"),
                   SizedBox(height: 20),
                   Expanded(
                     child: _isLoading
