@@ -12,7 +12,10 @@ class SearchHeader extends StatelessWidget {
           "Search",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        Icon(Icons.camera_alt_outlined),
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/search/camera'),
+          child: Icon(Icons.camera_alt_outlined),
+        ),
       ],
     );
   }
