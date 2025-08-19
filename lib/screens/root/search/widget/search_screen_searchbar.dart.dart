@@ -16,27 +16,44 @@ class SearchScreenSearchbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // If not active, show as a tappable container (for SearchScreen)
+    if (!isActive) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.search, color: Colors.grey[600], size: 24),
+              SizedBox(width: 12),
+              Text(
+                "Artists, Songs, Playlists...",
+                style: TextStyle(color: Colors.grey[600], fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // If active, show as a real TextField (for RecentSearchScreen)
     return Container(
       decoration: BoxDecoration(
-        color: isActive ? Color.fromRGBO(40, 40, 40, 1) : Colors.white,
+        color: Color.fromRGBO(40, 40, 40, 1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
         controller: controller,
         focusNode: focusNode,
-        onTap: onTap,
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          hintText: isActive ? "Search" : "Artists, Songs, Playlists...",
-          hintStyle: TextStyle(
-            color: isActive ? Colors.white70 : Colors.grey[600],
-            fontSize: 16,
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: isActive ? Colors.white70 : Colors.grey[600],
-            size: 24,
-          ),
+          hintText: "Search",
+          hintStyle: TextStyle(color: Colors.white70, fontSize: 16),
+          prefixIcon: Icon(Icons.search, color: Colors.white70, size: 24),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),

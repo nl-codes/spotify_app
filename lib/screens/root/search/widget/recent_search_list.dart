@@ -1,60 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/core/model/library_api_model.dart';
+import 'package:spotify_app/screens/root/library/widget/library_cards.dart';
+import 'package:spotify_app/utils/list_manipulate.dart';
 
 class RecentSearchList extends StatelessWidget {
-  const RecentSearchList({super.key});
+  final List<LibraryApiModel> recentCardLists;
+
+  const RecentSearchList({required this.recentCardLists, super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Hard-coded recent searches for static design
-    final List<String> recentSearches = [
-      'Taylor Swift',
-      'Lofi Hip Hop',
-      'Pop Hits 2024',
-      'The Weeknd',
-      'Chill Vibes',
-      'Rock Classics',
-      'Study Music',
-      'Ed Sheeran',
-    ];
+    shuffleList(recentCardLists, seed: 10);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child: Text(
-            'Recent searches',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
+      children: recentCardLists.map((item) {
+        final dataType = item.type.toLowerCase();
 
-        // Recent searches list
-        Expanded(
-          child: ListView.builder(
-            itemCount: recentSearches.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 8),
-                child: ListTile(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: 4,
-                  ),
-                  leading: Icon(Icons.history, color: Colors.white70, size: 24),
-                  title: Text(
-                    recentSearches[index],
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  onTap: () {},
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: dataType == "artist"
+              ? LibraryCards(
+                  imageUrl: item.imageURL,
+                  title: item.fullName ?? "",
+                  description: "Artist",
+                  type: LibraryCardType.artist,
+                )
+              : dataType == "podcast"
+              ? LibraryCards(
+                  imageUrl: item.imageURL,
+                  title: item.fullName ?? "",
+                  description: "Podcast",
+                  type: LibraryCardType.podcast,
+                )
+              : dataType == "song"
+              ? LibraryCards(
+                  imageUrl: item.imageURL,
+                  title: item.title ?? "",
+                  description: item.artist ?? "",
+                  type: LibraryCardType.song,
+                )
+              : LibraryCards(
+                  imageUrl: item.imageURL,
+                  title: item.title ?? "",
+                  description: item.artist ?? "",
+                  type: LibraryCardType.album,
                 ),
-              );
-            },
-          ),
-        ),
-      ],
+        );
+      }).toList(),
     );
   }
 }

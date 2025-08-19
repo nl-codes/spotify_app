@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/library_api_model.dart';
 import 'package:spotify_app/screens/root/library/widget/library_cards.dart';
 import 'package:spotify_app/screens/root/library/widget/library_filter_options.dart';
+import 'package:spotify_app/utils/list_manipulate.dart';
 
 class LibraryCardCollection extends StatelessWidget {
   final FilterOption currentFilter;
@@ -34,6 +35,7 @@ class LibraryCardCollection extends StatelessWidget {
     ];
 
     // ✅ Filter API cards
+    shuffleList(libraryCardLists, seed: 37);
     final filteredCards = libraryCardLists
         .where((item) {
           final dataType = item.type.toLowerCase();
