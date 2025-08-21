@@ -7,6 +7,7 @@ import 'package:spotify_app/screens/root/home/widgets/jump_back_in_row.dart';
 import 'package:spotify_app/screens/root/home/widgets/now_playing_bar.dart';
 import 'package:spotify_app/screens/root/home/widgets/recently_played_row.dart';
 import 'package:spotify_app/screens/root/home/widgets/spotify_wrapped.dart';
+import 'package:spotify_app/utils/list_manipulate.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Use the helper parser we built
       final items = parseMixedResponse(data);
+      shuffleList(items);
 
       setState(() {
         _recentlyPlayedItems = items;

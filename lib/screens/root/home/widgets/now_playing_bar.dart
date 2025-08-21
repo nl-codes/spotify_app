@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marqueer/marqueer.dart';
+import 'package:spotify_app/widgets/drawer/select_devices_drawer.dart';
 
 class NowPlayingBar extends StatelessWidget {
   const NowPlayingBar({super.key});
@@ -34,7 +35,13 @@ class NowPlayingBar extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8),
-                Icon(Icons.bluetooth, color: Theme.of(context).primaryColor),
+                GestureDetector(
+                  onTap: () => showSelectDevices(context),
+                  child: Icon(
+                    Icons.bluetooth,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
                 _PlayPauseButton(isPlay: false),
               ],
             ),

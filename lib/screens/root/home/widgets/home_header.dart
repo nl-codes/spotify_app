@@ -18,7 +18,10 @@ class HomeHeader extends StatelessWidget {
             SizedBox(width: 16),
             Icon(Icons.timer_outlined),
             SizedBox(width: 16),
-            Icon(Icons.settings_outlined),
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/setting'),
+              child: Icon(Icons.settings_outlined),
+            ),
           ],
         ),
       ],

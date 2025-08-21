@@ -6,6 +6,8 @@ import 'package:spotify_app/screens/preference/podcast/page/choose_podcast_scree
 import 'package:spotify_app/screens/root/page/root_screen.dart';
 import 'package:spotify_app/screens/root/search/page/recent_search_screen.dart';
 import 'package:spotify_app/screens/root/search/page/scan_from_camera_screen.dart';
+import 'package:spotify_app/screens/setting/page/setting_screen.dart';
+import 'package:spotify_app/screens/setting/page/test.dart';
 import 'package:spotify_app/screens/signup/page/signup_email_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_name_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_password_screen.dart';
@@ -51,6 +53,9 @@ class MyApp extends StatelessWidget {
 
         '/search/recent': (context) => RecentSearchScreen(),
         '/search/camera': (context) => ScanFromCameraScreen(),
+
+        '/setting': (context) => SettingScreen(),
+        '/test': (context) => TestScreen(),
       },
     );
   }
