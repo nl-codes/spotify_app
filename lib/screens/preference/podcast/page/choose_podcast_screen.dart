@@ -83,7 +83,7 @@ class _ChoosePodcastScreenState extends State<ChoosePodcastScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GreenButton(
-                      gotoPath: '/home',
+                      gotoPath: '/root',
                       isActive: true,
                       buttonName: "Done",
                     ),

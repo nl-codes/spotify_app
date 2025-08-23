@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class SettingOptionTitle extends StatelessWidget {
   final String option;
-  const SettingOptionTitle({super.key, required this.option});
+  final IconData icon;
+  const SettingOptionTitle({
+    super.key,
+    required this.option,
+    this.icon = Icons.chevron_right,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class SettingOptionTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(option, style: TextStyle(fontSize: 16)),
-          Icon(Icons.chevron_right, color: Colors.grey),
+          Icon(icon, color: Colors.grey),
         ],
       ),
     );

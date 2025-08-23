@@ -25,16 +25,23 @@ class SettingScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SettingProfileBar(),
-                SizedBox(height: 32),
-                ...settingOptions.map(
-                  (option) => SettingOptionTitle(option: option),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SettingProfileBar(),
+                      SizedBox(height: 32),
+                      ...settingOptions.map(
+                        (option) => SettingOptionTitle(option: option),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+              SettingOptionTitle(option: "Logout", icon: Icons.logout),
+            ],
           ),
         ),
       ),

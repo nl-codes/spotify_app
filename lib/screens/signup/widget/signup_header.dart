@@ -3,8 +3,14 @@ import 'package:spotify_app/widgets/custom_textfield.dart';
 
 class SignupHeader extends StatelessWidget {
   final String text;
+  final TextEditingController? controller;
   final String? description;
-  const SignupHeader({required this.text, this.description, super.key});
+  const SignupHeader({
+    required this.text,
+    this.description,
+    super.key,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class SignupHeader extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        CustomTextfield(),
+        CustomTextfield(controller: controller),
         SizedBox(height: 4),
         Text(description ?? "", style: TextStyle(fontSize: 12)),
       ],

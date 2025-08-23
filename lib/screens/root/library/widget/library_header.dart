@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:spotify_app/widgets/profile_icon.dart';
 
 class LibraryHeader extends StatelessWidget {
@@ -6,6 +7,8 @@ class LibraryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('Flutter');
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16),
       child: Row(
@@ -16,7 +19,7 @@ class LibraryHeader extends StatelessWidget {
               ProfileIcon(),
               SizedBox(width: 12),
               Text(
-                "Your Profile",
+                "${box.get("username") ?? "Your"}'s Profile",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],

@@ -5,11 +5,14 @@ class ProfileIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: Image.network(
-        'https://res.cloudinary.com/duhbs7hqv/image/upload/v1755328895/dazai_ykm8yv.jpg',
-        height: 40,
-        width: 40,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/profile/view'),
+      child: ClipOval(
+        child: Image.network(
+          'https://res.cloudinary.com/duhbs7hqv/image/upload/v1755328895/dazai_ykm8yv.jpg',
+          height: 40,
+          width: 40,
+        ),
       ),
     );
   }

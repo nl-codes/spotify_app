@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:spotify_app/screens/signup/widget/signup_header.dart';
 
 class SignupNameScreen extends StatelessWidget {
@@ -6,6 +7,8 @@ class SignupNameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box("Flutter");
+    final TextEditingController usernameController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -15,6 +18,7 @@ class SignupNameScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SignupHeader(
+                  controller: usernameController,
                   text: "What's your name?",
                   description: "This appears on your spotify profile",
                 ),
@@ -67,8 +71,10 @@ class SignupNameScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/choose/artists'),
+                      onTap: () {
+                        box.put("username", usernameController.text.trim());
+                        Navigator.pushNamed(context, '/choose/artists');
+                      },
                       child: _CreateAcccountButton(isActive: false),
                     ),
                   ],
