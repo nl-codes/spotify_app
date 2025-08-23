@@ -4,7 +4,7 @@ import 'package:spotify_app/core/network/podcast_avatar_service.dart';
 import 'package:spotify_app/widgets/button/green_button.dart';
 import 'package:spotify_app/widgets/custom_searchbar.dart';
 import 'package:spotify_app/widgets/header.dart';
-import 'package:spotify_app/widgets/podcasts/podcast_avatar.dart';
+import 'package:spotify_app/widgets/avatar/podcast_avatar.dart';
 
 class ChoosePodcastScreen extends StatefulWidget {
   const ChoosePodcastScreen({super.key});

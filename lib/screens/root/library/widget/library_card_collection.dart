@@ -23,6 +23,7 @@ class LibraryCardCollection extends StatelessWidget {
         title: "Liked Songs",
         description: "Playlist • 58 songs",
         type: LibraryCardType.defaultType,
+        id: '',
       ),
       SizedBox(height: 16),
       LibraryCards(
@@ -31,6 +32,7 @@ class LibraryCardCollection extends StatelessWidget {
         title: "New Episodes",
         description: "Updated 2 days ago",
         type: LibraryCardType.defaultType,
+        id: '',
       ),
     ];
 
@@ -63,6 +65,7 @@ class LibraryCardCollection extends StatelessWidget {
                     title: item.fullName ?? "",
                     description: "Artist",
                     type: LibraryCardType.artist,
+                    id: '',
                   )
                 : dataType == "podcast"
                 ? LibraryCards(
@@ -70,6 +73,7 @@ class LibraryCardCollection extends StatelessWidget {
                     title: item.fullName ?? "",
                     description: "Podcast",
                     type: LibraryCardType.podcast,
+                    id: '',
                   )
                 : dataType == "song"
                 ? LibraryCards(
@@ -77,12 +81,14 @@ class LibraryCardCollection extends StatelessWidget {
                     title: item.title ?? "",
                     description: item.artist ?? "",
                     type: LibraryCardType.song,
+                    id: '',
                   )
                 : LibraryCards(
                     imageUrl: item.imageURL,
                     title: item.title ?? "",
                     description: item.artist ?? "",
                     type: LibraryCardType.album,
+                    id: item.id,
                   ),
           );
         })

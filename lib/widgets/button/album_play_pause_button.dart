@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class AlbumPlayPauseButton extends StatefulWidget {
   final bool isPlay;
+  final Color color;
 
-  const AlbumPlayPauseButton({super.key, this.isPlay = false});
+  const AlbumPlayPauseButton({
+    super.key,
+    this.isPlay = false,
+    required this.color,
+  });
 
   @override
   State<AlbumPlayPauseButton> createState() => _AlbumPlayPauseButtonState();
@@ -29,7 +34,7 @@ class _AlbumPlayPauseButtonState extends State<AlbumPlayPauseButton> {
       child: Icon(
         _isPlaying ? Icons.pause_circle : Icons.play_circle,
         size: 60,
-        color: Theme.of(context).primaryColor,
+        color: widget.color,
       ),
     );
   }

@@ -25,6 +25,7 @@ class RecentSearchList extends StatelessWidget {
                   title: item.fullName ?? "",
                   description: "Artist",
                   type: LibraryCardType.artist,
+                  id: '',
                 )
               : dataType == "podcast"
               ? LibraryCards(
@@ -32,6 +33,7 @@ class RecentSearchList extends StatelessWidget {
                   title: item.fullName ?? "",
                   description: "Podcast",
                   type: LibraryCardType.podcast,
+                  id: '',
                 )
               : dataType == "song"
               ? LibraryCards(
@@ -39,12 +41,14 @@ class RecentSearchList extends StatelessWidget {
                   title: item.title ?? "",
                   description: item.artist ?? "",
                   type: LibraryCardType.song,
+                  id: '',
                 )
               : LibraryCards(
                   imageUrl: item.imageURL,
                   title: item.title ?? "",
                   description: item.artist ?? "",
                   type: LibraryCardType.album,
+                  id: item.id,
                 ),
         );
       }).toList(),

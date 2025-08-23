@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/mixed_avatar_api_model.dart';
-import 'package:spotify_app/widgets/album/album_avatar.dart';
-import 'package:spotify_app/widgets/artists/artists_avatar.dart';
-import 'package:spotify_app/widgets/podcasts/podcast_avatar.dart';
+import 'package:spotify_app/widgets/avatar/album_avatar.dart';
+import 'package:spotify_app/widgets/avatar/artists_avatar.dart';
+import 'package:spotify_app/widgets/avatar/podcast_avatar.dart';
+import 'package:spotify_app/widgets/avatar/song_avatar.dart';
 
 class RecentlyPlayedRow extends StatelessWidget {
   final List<MixedAvatarApiModel> recentlyPlayedItems;
@@ -36,6 +37,13 @@ class RecentlyPlayedRow extends StatelessWidget {
                 imageURL: item.imageURL,
                 fullName: item.title ?? "",
                 albumId: item.id,
+              );
+              break;
+            case "song":
+              widget = SongAvatar(
+                imageURL: item.imageURL,
+                fullName: item.title ?? "",
+                songId: item.id,
               );
               break;
             default:

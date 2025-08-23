@@ -7,7 +7,7 @@ class AlbumSongsApiModel {
   final String albumColor;
   final String artistURL;
   final String artistName;
-  final List<SongApiModel> songs;
+  final List<Song> songs;
 
   AlbumSongsApiModel({
     required this.id,
@@ -32,27 +32,27 @@ class AlbumSongsApiModel {
       artistURL: json['artistURL'] ?? '',
       artistName: json['artistName'] ?? '',
       songs: (json['songs'] as List<dynamic>? ?? [])
-          .map((song) => SongApiModel.fromJson(song))
+          .map((song) => Song.fromJson(song))
           .toList(),
     );
   }
 }
 
-class SongApiModel {
+class Song {
   final String id;
   final String title;
   final int trackNumber;
   final String duration;
 
-  SongApiModel({
+  Song({
     required this.id,
     required this.title,
     required this.trackNumber,
     required this.duration,
   });
 
-  factory SongApiModel.fromJson(Map<String, dynamic> json) {
-    return SongApiModel(
+  factory Song.fromJson(Map<String, dynamic> json) {
+    return Song(
       id: json['_id'] ?? '',
       title: json['title'] ?? '',
       trackNumber: json['trackNumber'] ?? 0,

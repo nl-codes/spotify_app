@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class LikeButton extends StatefulWidget {
   final bool initialLike;
+  final double? size;
 
-  const LikeButton({super.key, this.initialLike = false});
+  const LikeButton({super.key, this.initialLike = false, this.size});
 
   @override
   State<LikeButton> createState() => _LikeButtonState();
@@ -32,6 +33,7 @@ class _LikeButtonState extends State<LikeButton> {
       child: Icon(
         _isLiked ? Icons.favorite : Icons.favorite_border,
         color: _isLiked ? Theme.of(context).primaryColor : Colors.grey,
+        size: widget.size,
       ),
     );
   }

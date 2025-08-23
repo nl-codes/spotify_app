@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/album_songs_api_model.dart';
 import 'package:spotify_app/core/network/album_songs_service.dart';
+import 'package:spotify_app/screens/album/page/album_control_screen.dart';
 import 'package:spotify_app/screens/album/widget/album_songs_list.dart';
 import 'package:spotify_app/screens/album/widget/linked_download_button.dart';
 import 'package:spotify_app/screens/root/home/widgets/now_playing_bar.dart';
@@ -138,6 +139,7 @@ class _AlbumDetailScreenState extends State<AlbumDetailScreen> {
                                               fit: BoxFit.cover,
                                             ),
                                           ),
+                                          SizedBox(width: 8),
                                           Text(
                                             _album.artistName,
                                             style: TextStyle(
@@ -173,15 +175,33 @@ class _AlbumDetailScreenState extends State<AlbumDetailScreen> {
                                             ),
                                           ),
                                           SizedBox(width: 24),
-                                          Icon(
-                                            Icons.more_horiz,
-                                            color: Colors.grey,
+                                          GestureDetector(
+                                            onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AlbumControlScreen(
+                                                      coverUrl: _album.albumURL,
+                                                      albumTitle:
+                                                          _album.albumTitle,
+                                                      artistName:
+                                                          _album.artistName,
+                                                      color: _album.albumColor,
+                                                    ),
+                                              ),
+                                            ),
+                                            child: Icon(
+                                              Icons.more_horiz,
+                                              color: Colors.grey,
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ],
                                   ),
-                                  AlbumPlayPauseButton(),
+                                  AlbumPlayPauseButton(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ],
                               ),
                               SizedBox(height: 20),
@@ -189,6 +209,9 @@ class _AlbumDetailScreenState extends State<AlbumDetailScreen> {
                                 artist: _album.artistName,
                                 songsList: _album.songs,
                                 isDownloaded: _isDownloaded,
+                                albumName: _album.albumTitle,
+                                albumCover: _album.albumURL,
+                                albumColor: _album.albumColor,
                               ),
                             ],
                           ),

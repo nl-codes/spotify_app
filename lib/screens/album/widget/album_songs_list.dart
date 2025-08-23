@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/album_songs_api_model.dart';
 import 'package:spotify_app/screens/album/widget/linked_download_button.dart';
+import 'package:spotify_app/screens/song/page/album_song_detail_screen.dart';
 
 class AlbumSongsList extends StatefulWidget {
+  final String albumName;
+  final String albumCover;
+  final String albumColor;
   final String artist;
-  final List<SongApiModel> songsList;
+  final List<Song> songsList;
   final bool isDownloaded;
 
   const AlbumSongsList({
@@ -12,6 +16,9 @@ class AlbumSongsList extends StatefulWidget {
     required this.songsList,
     required this.isDownloaded,
     required this.artist,
+    required this.albumName,
+    required this.albumCover,
+    required this.albumColor,
   });
 
   @override
@@ -32,6 +39,21 @@ class _AlbumSongsListState extends State<AlbumSongsList> {
         final isSelected = selectedSongIndex == index;
 
         return GestureDetector(
+          onDoubleTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AlbumSongDetailScreen(
+                  albumName: widget.albumName,
+                  albumCover: widget.albumCover,
+                  artistName: widget.artist,
+                  songName: song.title,
+                  color: widget.albumColor,
+                  duration: song.duration,
+                ),
+              ),
+            );
+          },
           onTap: () {
             setState(() {
               selectedSongIndex = index;

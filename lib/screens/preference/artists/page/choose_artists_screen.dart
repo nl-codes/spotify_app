@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/avatar_api_model.dart';
 import 'package:spotify_app/core/network/artist_avatar_service.dart';
-import 'package:spotify_app/widgets/artists/artists_avatar.dart';
+import 'package:spotify_app/widgets/avatar/artists_avatar.dart';
 import 'package:spotify_app/widgets/button/green_button.dart';
 import 'package:spotify_app/widgets/custom_searchbar.dart';
 import 'package:spotify_app/widgets/header.dart';

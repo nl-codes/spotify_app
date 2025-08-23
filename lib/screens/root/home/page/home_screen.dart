@@ -129,6 +129,13 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
 
+    // parse songs
+    if (response['songs'] != null) {
+      for (var song in response['songs']) {
+        items.add(MixedAvatarApiModel.fromJson(song, "song"));
+      }
+    }
+
     return items;
   }
 }
