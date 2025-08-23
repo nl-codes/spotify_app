@@ -13,8 +13,7 @@ class _ProfilePlaylistSectionState extends State<ProfilePlaylistSection> {
   final PlaylistService _service = PlaylistService();
   List<PlaylistApiModel> _playlists = [];
 
-  bool _isLoading =
-      true; // Initialize as true since we start loading immediately
+  bool _isLoading = true;
   String _error = "";
 
   @override

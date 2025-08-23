@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/mixed_avatar_api_model.dart';
+import 'package:spotify_app/widgets/album/album_avatar.dart';
 import 'package:spotify_app/widgets/artists/artists_avatar.dart';
 import 'package:spotify_app/widgets/podcasts/podcast_avatar.dart';
 
@@ -31,9 +32,10 @@ class RecentlyPlayedRow extends StatelessWidget {
               );
               break;
             case "album":
-              widget = PodcastAvatar(
+              widget = AlbumAvatar(
                 imageURL: item.imageURL,
                 fullName: item.title ?? "",
+                albumId: item.id,
               );
               break;
             default:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:spotify_app/screens/album/page/album_detail_screen.dart';
 import 'package:spotify_app/screens/login/page/login_screen.dart';
 import 'package:spotify_app/screens/preference/artists/page/choose_artists_screen.dart';
 import 'package:spotify_app/screens/preference/podcast/page/choose_podcast_screen.dart';
@@ -64,6 +65,8 @@ class MyApp extends StatelessWidget {
 
         '/profile/view': (context) => ProfileViewScreen(),
         '/profile/edit': (context) => ProfileEditScreen(),
+
+        '/album/detail': (context) => AlbumDetailScreen(albumId: ""),
         '/test': (context) => TestScreen(),
       },
     );

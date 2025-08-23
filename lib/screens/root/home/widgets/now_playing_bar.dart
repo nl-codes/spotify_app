@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marqueer/marqueer.dart';
+import 'package:spotify_app/widgets/button/play_pause_button.dart';
 import 'package:spotify_app/widgets/drawer/select_devices_drawer.dart';
 
 class NowPlayingBar extends StatelessWidget {
@@ -42,7 +43,7 @@ class NowPlayingBar extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                _PlayPauseButton(isPlay: false),
+                PlayPauseButton(isPlay: false),
               ],
             ),
           ),
@@ -126,40 +127,6 @@ class _BluetoothDevice extends StatelessWidget {
           style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 12),
         ),
       ],
-    );
-  }
-}
-
-class _PlayPauseButton extends StatefulWidget {
-  final bool isPlay;
-
-  const _PlayPauseButton({required this.isPlay});
-
-  @override
-  State<_PlayPauseButton> createState() => _PlayPauseButtonState();
-}
-
-class _PlayPauseButtonState extends State<_PlayPauseButton> {
-  late bool _isPlaying = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _isPlaying = widget.isPlay;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isPlaying = !_isPlaying;
-        });
-      },
-      child: Icon(
-        _isPlaying ? Icons.pause : Icons.play_arrow,
-        color: Colors.white,
-      ),
     );
   }
 }
