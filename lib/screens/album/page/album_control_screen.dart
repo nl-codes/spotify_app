@@ -9,7 +9,7 @@ class _OptionItem {
   const _OptionItem({required this.icon, required this.label});
 }
 
-class AlbumControlScreen extends StatelessWidget {
+class AlbumControlScreen extends StatefulWidget {
   final String coverUrl;
   final String albumTitle;
   final String artistName;
@@ -23,12 +23,27 @@ class AlbumControlScreen extends StatelessWidget {
   });
 
   @override
+  State<AlbumControlScreen> createState() => _AlbumControlScreenState();
+}
+
+class _AlbumControlScreenState extends State<AlbumControlScreen> {
+  bool isLiked = false;
+  bool isAllSongsLiked = false;
+
+  @override
   Widget build(BuildContext context) {
     final List<_OptionItem> options = [
       _OptionItem(
         icon: IconButton(
-          icon: Icon(Icons.favorite, color: Colors.grey),
-          onPressed: () {},
+          icon: Icon(
+            isLiked ? Icons.favorite : Icons.favorite_outline_outlined,
+            color: isLiked ? Theme.of(context).primaryColor : Colors.grey,
+          ),
+          onPressed: () {
+            setState(() {
+              isLiked = !isLiked;
+            });
+          },
         ),
         label: "Like",
       ),
@@ -58,8 +73,17 @@ class AlbumControlScreen extends StatelessWidget {
       ),
       _OptionItem(
         icon: IconButton(
-          icon: Icon(Icons.favorite, color: Colors.grey),
-          onPressed: () {},
+          icon: Icon(
+            isAllSongsLiked ? Icons.favorite : Icons.favorite_outline_outlined,
+            color: isAllSongsLiked
+                ? Theme.of(context).primaryColor
+                : Colors.grey,
+          ),
+          onPressed: () {
+            setState(() {
+              isAllSongsLiked = !isAllSongsLiked;
+            });
+          },
         ),
         label: "Like all Songs",
       ),
@@ -104,7 +128,7 @@ class AlbumControlScreen extends StatelessWidget {
             end: Alignment.bottomCenter,
             stops: [0, 0.5, 0.9],
             colors: [
-              hexToColor(color),
+              hexToColor(widget.color),
               Theme.of(context).scaffoldBackgroundColor,
               Theme.of(context).scaffoldBackgroundColor,
             ],
@@ -118,14 +142,14 @@ class AlbumControlScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 20),
                   Image.network(
-                    coverUrl,
+                    widget.coverUrl,
                     height: 150,
                     width: 150,
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 40),
-                  Text(albumTitle, style: TextStyle(fontSize: 20)),
-                  Text(artistName, style: TextStyle(color: Colors.grey)),
+                  Text(widget.albumTitle, style: TextStyle(fontSize: 20)),
+                  Text(widget.artistName, style: TextStyle(color: Colors.grey)),
                   SizedBox(height: 20),
                   ...options.map(
                     (option) => AlbumControlOptions(

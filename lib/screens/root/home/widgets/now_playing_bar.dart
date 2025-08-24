@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marqueer/marqueer.dart';
+import 'package:spotify_app/screens/song/page/song_detail_screen.dart';
 import 'package:spotify_app/widgets/button/play_pause_button.dart';
 import 'package:spotify_app/widgets/drawer/select_devices_drawer.dart';
 
@@ -9,59 +10,68 @@ class NowPlayingBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            height: 60,
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(15, 25, 41, 1),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                _NowPlayingSongImage(),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20, child: _NowPlayingSongName()),
-                      SizedBox(height: 4),
-                      _BluetoothDevice(),
-                    ],
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              SongDetailScreen(songId: "68a0a0485c5ec53436b5e12e"),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              height: 60,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(15, 25, 41, 1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  _NowPlayingSongImage(),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20, child: _NowPlayingSongName()),
+                        SizedBox(height: 4),
+                        _BluetoothDevice(),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(width: 8),
-                GestureDetector(
-                  onTap: () => showSelectDevices(context),
-                  child: Icon(
-                    Icons.bluetooth,
-                    color: Theme.of(context).primaryColor,
+                  SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () => showSelectDevices(context),
+                    child: Icon(
+                      Icons.bluetooth,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
-                ),
-                PlayPauseButton(isPlay: false),
-              ],
+                  PlayPauseButton(isPlay: false),
+                ],
+              ),
             ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _ProgressBar(color: Color.fromRGBO(58, 67, 79, 1)),
-          ),
-          Positioned(
-            left: 0,
-            bottom: 0,
-            child: _ProgressBar(
-              width: MediaQuery.of(context).size.width * 0.5,
-              color: Color.fromRGBO(178, 178, 178, 1),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: _ProgressBar(color: Color.fromRGBO(58, 67, 79, 1)),
             ),
-          ),
-        ],
+            Positioned(
+              left: 0,
+              bottom: 0,
+              child: _ProgressBar(
+                width: MediaQuery.of(context).size.width * 0.5,
+                color: Color.fromRGBO(178, 178, 178, 1),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

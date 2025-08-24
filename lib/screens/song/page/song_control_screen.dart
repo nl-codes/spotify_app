@@ -9,7 +9,7 @@ class _OptionItem {
   const _OptionItem({required this.icon, required this.label});
 }
 
-class SongControlScreen extends StatelessWidget {
+class SongControlScreen extends StatefulWidget {
   final String coverUrl;
   final String songTitle;
   final String artistName;
@@ -23,12 +23,26 @@ class SongControlScreen extends StatelessWidget {
   });
 
   @override
+  State<SongControlScreen> createState() => _SongControlScreenState();
+}
+
+class _SongControlScreenState extends State<SongControlScreen> {
+  bool isLiked = false;
+
+  @override
   Widget build(BuildContext context) {
     final List<_OptionItem> options = [
       _OptionItem(
         icon: IconButton(
-          icon: Icon(Icons.favorite, color: Colors.grey),
-          onPressed: () {},
+          icon: Icon(
+            isLiked ? Icons.favorite : Icons.favorite_outlined,
+            color: isLiked ? Theme.of(context).primaryColor : Colors.grey,
+          ),
+          onPressed: () {
+            setState(() {
+              isLiked = !isLiked;
+            });
+          },
         ),
         label: "Like",
       ),
@@ -126,7 +140,7 @@ class SongControlScreen extends StatelessWidget {
             end: Alignment.bottomCenter,
             stops: [0, 0.5, 0.9],
             colors: [
-              hexToColor(color),
+              hexToColor(widget.color),
               Theme.of(context).scaffoldBackgroundColor,
               Theme.of(context).scaffoldBackgroundColor,
             ],
@@ -140,14 +154,14 @@ class SongControlScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 20),
                   Image.network(
-                    coverUrl,
+                    widget.coverUrl,
                     height: 150,
                     width: 150,
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 40),
-                  Text(songTitle, style: TextStyle(fontSize: 20)),
-                  Text(artistName, style: TextStyle(color: Colors.grey)),
+                  Text(widget.songTitle, style: TextStyle(fontSize: 20)),
+                  Text(widget.artistName, style: TextStyle(color: Colors.grey)),
                   SizedBox(height: 20),
                   ...options.map(
                     (option) => AlbumControlOptions(

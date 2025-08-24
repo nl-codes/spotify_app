@@ -54,7 +54,6 @@ class _SongDetailScreenState extends State<SongDetailScreen> {
       setState(() {
         _error = e.toString();
         _isLoading = false;
-        _song;
       });
     }
   }
@@ -71,7 +70,7 @@ class _SongDetailScreenState extends State<SongDetailScreen> {
         : _error.isNotEmpty
         ? FailedToLoadWithError(
             error: _error,
-            fetchingItem: "Album",
+            fetchingItem: "Song",
             onRetry: fetchSongs,
           )
         : Scaffold(

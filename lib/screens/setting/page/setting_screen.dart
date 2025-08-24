@@ -38,7 +38,11 @@ class SettingScreen extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          SettingProfileBar(),
+                          GestureDetector(
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/profile/view'),
+                            child: SettingProfileBar(),
+                          ),
                           SizedBox(height: 32),
                           ...settingOptions.map(
                             (option) => SettingOptionTitle(option: option),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/screens/album/page/album_detail_screen.dart';
+import 'package:spotify_app/screens/playlist/page/playlist_detail_screen.dart';
+import 'package:spotify_app/screens/song/page/song_detail_screen.dart';
 
 enum LibraryCardType { defaultType, song, artist, album, podcast }
 
@@ -28,6 +30,23 @@ class LibraryCards extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => AlbumDetailScreen(albumId: id),
+            ),
+          );
+        } else if (type == LibraryCardType.song) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SongDetailScreen(songId: id),
+            ),
+          );
+        } else if (type == LibraryCardType.defaultType) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlaylistDetailScreen(
+                playlistCover:
+                    "https://res.cloudinary.com/duhbs7hqv/image/upload/v1755334958/liked_icon_pvcs5o.jpg",
+              ),
             ),
           );
         }

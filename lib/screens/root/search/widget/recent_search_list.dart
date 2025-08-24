@@ -41,7 +41,7 @@ class RecentSearchList extends StatelessWidget {
                   title: item.title ?? "",
                   description: item.artist ?? "",
                   type: LibraryCardType.song,
-                  id: '',
+                  id: item.id,
                 )
               : LibraryCards(
                   imageUrl: item.imageURL,
