@@ -25,4 +25,13 @@ class SongService {
       throw Exception("❌ Error fetching artist: $e");
     }
   }
+
+  Future<Response> fetchSongById(String songId) async {
+    try {
+      final Response response = await _dio.get('/$songId');
+      return response;
+    } catch (e) {
+      throw Exception("Error fetching albums of songId : $songId");
+    }
+  }
 }

@@ -209,6 +209,7 @@ class _AlbumDetailScreenState extends State<AlbumDetailScreen> {
                                 artist: _album.artistName,
                                 songsList: _album.songs,
                                 isDownloaded: _isDownloaded,
+                                albumId: _album.id,
                                 albumName: _album.albumTitle,
                                 albumCover: _album.albumURL,
                                 albumColor: _album.albumColor,

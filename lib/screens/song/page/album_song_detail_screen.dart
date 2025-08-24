@@ -11,6 +11,7 @@ import 'package:spotify_app/widgets/button/shuffle_button.dart';
 import 'package:spotify_app/widgets/simple_slider.dart';
 
 class AlbumSongDetailScreen extends StatelessWidget {
+  final String albumId;
   final String albumCover;
   final String albumName;
   final String artistName;
@@ -26,6 +27,7 @@ class AlbumSongDetailScreen extends StatelessWidget {
     required this.songName,
     required this.color,
     required this.duration,
+    required this.albumId,
   });
 
   @override

@@ -37,7 +37,6 @@ class _PlaylistDetailScreenState extends State<PlaylistDetailScreen> {
   }
 
   Future<void> fetchSongs() async {
-    widget.isDefault ? print("defualt") : print("not deafult");
     try {
       final response = widget.isDefault
           ? await _songService.fetchSongforDefaults()

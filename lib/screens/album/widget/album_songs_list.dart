@@ -4,6 +4,7 @@ import 'package:spotify_app/screens/album/widget/linked_download_button.dart';
 import 'package:spotify_app/screens/song/page/album_song_detail_screen.dart';
 
 class AlbumSongsList extends StatefulWidget {
+  final String albumId;
   final String albumName;
   final String albumCover;
   final String albumColor;
@@ -13,6 +14,7 @@ class AlbumSongsList extends StatefulWidget {
 
   const AlbumSongsList({
     super.key,
+    required this.albumId,
     required this.songsList,
     required this.isDownloaded,
     required this.artist,
@@ -44,6 +46,7 @@ class _AlbumSongsListState extends State<AlbumSongsList> {
               context,
               MaterialPageRoute(
                 builder: (context) => AlbumSongDetailScreen(
+                  albumId: widget.albumId,
                   albumName: widget.albumName,
                   albumCover: widget.albumCover,
                   artistName: widget.artist,
