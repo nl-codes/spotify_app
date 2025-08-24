@@ -17,17 +17,21 @@ class _RootScreenState extends State<RootScreen> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _selectedIndex = widget.screenIndex ?? 0;
-    });
+    if (mounted) {
+      setState(() {
+        _selectedIndex = widget.screenIndex ?? 0;
+      });
+    }
   }
 
   final List<Widget> _screens = [HomeScreen(), SearchScreen(), LibraryScreen()];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (mounted) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override

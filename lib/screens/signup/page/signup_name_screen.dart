@@ -40,20 +40,26 @@ class _SignupNameScreenState extends State<SignupNameScreen> {
               listener: (context, state) {
                 switch (state) {
                   case AuthError error:
-                    setState(() {
-                      isLoading = false;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
                     showCustomSnackbar(context, error.message);
 
                   case AuthLoading _:
-                    setState(() {
-                      isLoading = true;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                    }
 
                   case Authenticated state:
-                    setState(() {
-                      isLoading = false;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
                     showCustomSnackbar(
                       context,
                       "Account created: ${state.user.email}!",
@@ -62,9 +68,11 @@ class _SignupNameScreenState extends State<SignupNameScreen> {
                     Navigator.pushNamed(context, '/choose/artists');
 
                   case Unauthenticated _:
-                    setState(() {
-                      isLoading = false;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
                 }
               },
               builder: (context, asyncSnapshot) {
@@ -195,9 +203,11 @@ class _UserCheckBoxState extends State<_UserCheckBox> {
                     color: Theme.of(context).primaryColor,
                   ),
             onPressed: () {
-              setState(() {
-                isChecked = !isChecked;
-              });
+              if (mounted) {
+                setState(() {
+                  isChecked = !isChecked;
+                });
+              }
             },
           ),
         ),

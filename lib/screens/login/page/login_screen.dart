@@ -28,20 +28,25 @@ class _LoginScreenState extends State<LoginScreen> {
             listener: (context, state) {
               switch (state) {
                 case AuthError error:
-                  setState(() {
-                    isLoading = false;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
                   showCustomSnackbar(context, error.message);
 
                 case AuthLoading _:
-                  setState(() {
-                    isLoading = true;
-                  });
-
+                  if (mounted) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                  }
                 case Authenticated state:
-                  setState(() {
-                    isLoading = false;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
                   showCustomSnackbar(
                     context,
                     "Welcome back, ${state.user.email}!",
@@ -55,9 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
 
                 case Unauthenticated _:
-                  setState(() {
-                    isLoading = false;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
               }
             },
             builder: (context, state) {
@@ -82,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   CustomTextfield(
+                    isPassword: true,
                     controller: _passwordController,
                     obscureText: true,
                     textInputAction: TextInputAction.done,

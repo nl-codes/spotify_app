@@ -41,6 +41,7 @@ class _SignupPasswordScreenState extends State<SignupPasswordScreen> {
           child: Column(
             children: [
               SignupHeader(
+                isPassword: true,
                 controller: _passwordController,
                 text: "Create a password",
                 description: "Use at least 6 characters",

@@ -5,11 +5,13 @@ class SignupHeader extends StatelessWidget {
   final String text;
   final TextEditingController? controller;
   final String? description;
+  final bool isPassword;
   const SignupHeader({
     required this.text,
     this.description,
     super.key,
     this.controller,
+    this.isPassword = false,
   });
 
   @override
@@ -46,7 +48,7 @@ class SignupHeader extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        CustomTextfield(controller: controller),
+        CustomTextfield(controller: controller, isPassword: isPassword),
         SizedBox(height: 4),
         Text(description ?? "", style: TextStyle(fontSize: 12)),
       ],

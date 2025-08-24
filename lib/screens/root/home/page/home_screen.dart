@@ -37,16 +37,20 @@ class _HomeScreenState extends State<HomeScreen> {
       final items = parseMixedResponse(data);
       shuffleList(items);
 
-      setState(() {
-        _recentlyPlayedItems = items;
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _recentlyPlayedItems = items;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
       print(e.toString());
-      setState(() {
-        _error = e.toString();
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _error = e.toString();
+          _isLoading = false;
+        });
+      }
     }
   }
 
