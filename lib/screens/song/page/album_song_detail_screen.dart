@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marqueer/marqueer.dart';
+import 'package:spotify_app/screens/album/page/album_radio_screen.dart';
 import 'package:spotify_app/screens/song/page/song_control_screen.dart';
 import 'package:spotify_app/screens/song/page/song_share_screen.dart';
 import 'package:spotify_app/utils/hextocolor.dart';
@@ -178,7 +179,13 @@ class AlbumSongDetailScreen extends StatelessWidget {
                           icon: Icon(Icons.ios_share_outlined),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AlbumRadioScreen(albumId: albumId),
+                            ),
+                          ),
                           icon: Icon(Icons.playlist_add_rounded),
                         ),
                       ],
