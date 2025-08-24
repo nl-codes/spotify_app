@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/avatar_api_model.dart';
 import 'package:spotify_app/core/network/podcast_avatar_service.dart';
+import 'package:spotify_app/screens/preference/widget/select_avatar.dart';
 import 'package:spotify_app/widgets/button/green_button.dart';
 import 'package:spotify_app/widgets/custom_searchbar.dart';
 import 'package:spotify_app/widgets/header.dart';
-import 'package:spotify_app/widgets/avatar/podcast_avatar.dart';
 
 class ChoosePodcastScreen extends StatefulWidget {
   const ChoosePodcastScreen({super.key});
@@ -66,7 +66,8 @@ class _ChoosePodcastScreenState extends State<ChoosePodcastScreen> {
                             crossAxisSpacing: 16,
                             childAspectRatio: 0.75,
                             children: _artists.map((artist) {
-                              return PodcastAvatar(
+                              return SelectAvatar(
+                                type: SelectionAvatarType.podcast,
                                 imageURL: artist.imageURL,
                                 fullName: artist.fullName,
                               );

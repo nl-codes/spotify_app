@@ -10,6 +10,7 @@ import 'package:spotify_app/widgets/button/album_play_pause_button.dart';
 import 'package:spotify_app/widgets/button/like_button.dart';
 import 'package:spotify_app/widgets/button/repeat_button.dart';
 import 'package:spotify_app/widgets/button/shuffle_button.dart';
+import 'package:spotify_app/widgets/drawer/select_devices_drawer.dart';
 import 'package:spotify_app/widgets/failed_to_load_with_error.dart';
 import 'package:spotify_app/widgets/simple_slider.dart';
 
@@ -193,19 +194,22 @@ class _SongDetailScreenState extends State<SongDetailScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.bluetooth,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              Text(
-                                "Narayan's Airpods",
-                                style: TextStyle(
+                          GestureDetector(
+                            onTap: () => showSelectDevices(context),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.bluetooth,
                                   color: Theme.of(context).primaryColor,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "Narayan's Airpods",
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Row(
                             children: [
@@ -224,10 +228,6 @@ class _SongDetailScreenState extends State<SongDetailScreen> {
                                   );
                                 },
                                 icon: Icon(Icons.ios_share_outlined),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.playlist_add_rounded),
                               ),
                             ],
                           ),

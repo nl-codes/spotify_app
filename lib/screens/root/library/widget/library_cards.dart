@@ -24,7 +24,7 @@ class LibraryCards extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (type == LibraryCardType.album) {
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => AlbumDetailScreen(albumId: id),

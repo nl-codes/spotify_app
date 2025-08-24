@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/avatar_api_model.dart';
 import 'package:spotify_app/core/network/artist_avatar_service.dart';
-import 'package:spotify_app/widgets/avatar/artists_avatar.dart';
+import 'package:spotify_app/screens/preference/widget/select_avatar.dart';
 import 'package:spotify_app/widgets/button/green_button.dart';
 import 'package:spotify_app/widgets/custom_searchbar.dart';
 import 'package:spotify_app/widgets/header.dart';
@@ -66,7 +66,8 @@ class _ChooseArtistsScreenState extends State<ChooseArtistsScreen> {
                             crossAxisSpacing: 16,
                             childAspectRatio: 0.75,
                             children: _artists.map((artist) {
-                              return ArtistsAvatar(
+                              return SelectAvatar(
+                                type: SelectionAvatarType.artist,
                                 imageURL: artist.imageURL,
                                 fullName: artist.fullName,
                               );
