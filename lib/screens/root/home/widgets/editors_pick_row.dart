@@ -1,42 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/core/model/playlist_api_model.dart';
+import 'package:spotify_app/core/network/playlist_service.dart';
+import 'package:spotify_app/screens/playlist/page/playlist_detail_screen.dart';
+import 'package:spotify_app/widgets/failed_to_load_with_error.dart';
 
-class EditorsPickRow extends StatelessWidget {
+class EditorsPickRow extends StatefulWidget {
   const EditorsPickRow({super.key});
 
   @override
+  State<EditorsPickRow> createState() => _EditorsPickRowState();
+}
+
+class _EditorsPickRowState extends State<EditorsPickRow> {
+  final PlaylistService _playlistService = PlaylistService();
+  List<PlaylistApiModel> _playlists = [];
+  bool _isLoading = false;
+  String _error = "";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPlaylists();
+  }
+
+  Future<void> fetchPlaylists() async {
+    try {
+      final response = await _playlistService.fetchPlaylists();
+      final data = response.data as List;
+      setState(() {
+        _playlists = data
+            .map((json) => PlaylistApiModel.fromJson(json))
+            .toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> cardsData = [
-      {
-        "imageUrl":
-            "https://i.scdn.co/image/ab67706f0000000205ea78beb067ecbd2775fc89",
-        "description": "Ed Sheeran, Big Sean, Juice WRLD, Post Malone",
-      },
-      {
-        "imageUrl":
-            "https://epigram.org.uk/content/images/2023/09/Event-Horizon-IMDB.jpeg",
-        "description": "Mitski, Tame Impala, Glass Animals, Charli XCX",
-      },
-      {
-        "imageUrl":
-            "https://i.scdn.co/image/ab67706f0000000279ad582ea8f249f2df9553fa",
-        "description": "",
-      },
-    ];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: cardsData.map((data) {
-          return Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: _Card(
-              imageUrl: data["imageUrl"]!,
-              description: data["description"],
+    return _isLoading
+        ? Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : _error.isNotEmpty
+        ? FailedToLoadWithError(
+            error: _error,
+            fetchingItem: "Album",
+            onRetry: fetchPlaylists,
+          )
+        : SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _playlists.map((data) {
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PlaylistDetailScreen(playlistCover: data.imageURL),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 16),
+                    child: _Card(
+                      imageUrl: data.imageURL,
+                      description: data.title,
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           );
-        }).toList(),
-      ),
-    );
   }
 }
 

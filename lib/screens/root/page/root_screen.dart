@@ -4,7 +4,8 @@ import 'package:spotify_app/screens/root/library/page/library_screen.dart';
 import 'package:spotify_app/screens/root/search/page/search_screen.dart';
 
 class RootScreen extends StatefulWidget {
-  const RootScreen({super.key});
+  final int? screenIndex;
+  const RootScreen({super.key, this.screenIndex});
 
   @override
   State<RootScreen> createState() => _RootScreenState();
@@ -12,6 +13,14 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _selectedIndex = widget.screenIndex ?? 0;
+    });
+  }
 
   final List<Widget> _screens = [HomeScreen(), SearchScreen(), LibraryScreen()];
 

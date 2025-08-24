@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_app/core/model/playlist_api_model.dart';
 import 'package:spotify_app/core/network/playlist_service.dart';
+import 'package:spotify_app/screens/playlist/page/playlist_detail_screen.dart';
 
 class ProfilePlaylistSection extends StatefulWidget {
   const ProfilePlaylistSection({super.key});
@@ -98,12 +99,22 @@ class _ProfilePlaylistSectionState extends State<ProfilePlaylistSection> {
               )
             : Column(
                 children: _playlists.map((playlist) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: _PlaylistCard(
-                      imageUrl: playlist.imageURL,
-                      name: playlist.title,
-                      likeCounts: playlist.likes,
+                  return GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlaylistDetailScreen(
+                          playlistCover: playlist.imageURL,
+                        ),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: _PlaylistCard(
+                        imageUrl: playlist.imageURL,
+                        name: playlist.title,
+                        likeCounts: playlist.likes,
+                      ),
                     ),
                   );
                 }).toList(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/screens/root/page/root_screen.dart';
 
 class Footer extends StatelessWidget {
   final String selectedTab;
@@ -13,7 +14,11 @@ class Footer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/home'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => RootScreen()),
+              (Route<dynamic> route) => false,
+            ),
             child: _FooterComponent(
               componentIcon: Icons.home,
               componentName: "Home",
@@ -21,7 +26,13 @@ class Footer extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/search'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RootScreen(screenIndex: 1),
+              ),
+              (Route<dynamic> route) => false,
+            ),
             child: _FooterComponent(
               componentIcon: Icons.search,
               componentName: "Search",
@@ -29,7 +40,14 @@ class Footer extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/library'),
+            onTap: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RootScreen(screenIndex: 2),
+                maintainState: false,
+              ),
+              (Route<dynamic> route) => false,
+            ),
             child: _FooterComponent(
               componentName: "Library",
               imageIconPath:

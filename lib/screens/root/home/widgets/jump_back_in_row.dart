@@ -1,52 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/core/model/album_api_model.dart';
+import 'package:spotify_app/core/network/album_service.dart';
+import 'package:spotify_app/screens/album/page/album_detail_screen.dart';
+import 'package:spotify_app/widgets/failed_to_load_with_error.dart';
 
-class JumpBackInRow extends StatelessWidget {
+class JumpBackInRow extends StatefulWidget {
   const JumpBackInRow({super.key});
 
   @override
+  State<JumpBackInRow> createState() => _JumpBackInRowState();
+}
+
+class _JumpBackInRowState extends State<JumpBackInRow> {
+  final AlbumService _albumService = AlbumService();
+  List<AlbumApiModel> _albumLists = [];
+  bool _isLoading = false;
+  String _error = "";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAlbums();
+  }
+
+  Future<void> fetchAlbums() async {
+    try {
+      final response = await _albumService.fetchAlbums();
+      final data = response.data as List;
+      setState(() {
+        _albumLists = data.map((json) => AlbumApiModel.fromJson(json)).toList();
+        _isLoading = false;
+      });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> cardsData = [
-      {
-        "imageUrl":
-            "https://i.scdn.co/image/ab67616d0000b2739e81c165e5ec0802b8eb4e8a",
-        "title": "Mutu Dekhin (Raw)",
-        "author": "John Rai",
-      },
-      {
-        "imageUrl":
-            "https://i.scdn.co/image/ab67616d0000b27351c02a77d09dfcd53c8676d0",
-        "title": "Highway to Hell",
-        "author": "AC/DC",
-      },
-      {
-        "imageUrl":
-            "https://i.scdn.co/image/ab67616d0000b2737a9bf5f82e32d33d4503fe7b",
-        "title": "Hozier",
-        "author": "Hozier",
-      },
-      {
-        "imageUrl":
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReLDpZFn-RgnPnIKVbaf1QcHqYedcgHjCxjw&s",
-        "title": "Strange Trails",
-        "author": "Lord Huron",
-      },
-    ];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: cardsData.map((data) {
-          return Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: _Card(
-              imageUrl: data["imageUrl"]!,
-              title: data["title"]!,
-              author: data["author"]!,
+    return _isLoading
+        ? Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : _error.isNotEmpty
+        ? FailedToLoadWithError(
+            error: _error,
+            fetchingItem: "Album",
+            onRetry: fetchAlbums,
+          )
+        : SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _albumLists.map((data) {
+                return Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AlbumDetailScreen(albumId: data.albumId),
+                      ),
+                    ),
+                    child: _Card(
+                      imageUrl: data.imageURL,
+                      title: data.title,
+                      author: data.artist,
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           );
-        }).toList(),
-      ),
-    );
   }
 }
 

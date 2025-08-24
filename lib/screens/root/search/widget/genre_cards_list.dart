@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_app/screens/playlist/page/playlist_detail_screen.dart';
 
 class GenreCardsList extends StatelessWidget {
   const GenreCardsList({super.key});
@@ -70,7 +71,19 @@ class GenreCardsList extends StatelessWidget {
       shrinkWrap: true,
       childAspectRatio: 2 / 1.3,
       children: genreCardsData.map((data) {
-        return _GenreCard(imageUrl: data["imageUrl"]!);
+        return GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlaylistDetailScreen(
+                playlistCover:
+                    "https://res.cloudinary.com/duhbs7hqv/image/upload/v1756054712/1600w-jGlDSM71rNM_zmqxhj.webp",
+                isDefault: true,
+              ),
+            ),
+          ),
+          child: _GenreCard(imageUrl: data["imageUrl"]!),
+        );
       }).toList(),
     );
   }

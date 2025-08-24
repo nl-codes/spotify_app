@@ -73,7 +73,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           recentlyPlayedItems: _recentlyPlayedItems,
                         ),
                         const SizedBox(height: 16),
-                        SpotifyWrapper(),
+                        Text(
+                          "Jump back in",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        JumpBackInRow(),
                         const SizedBox(height: 16),
                         Text(
                           "Editor's Pick",
@@ -85,15 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 8),
                         EditorsPickRow(),
                         SizedBox(height: 16),
-                        Text(
-                          "Jump back in",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        JumpBackInRow(),
+
+                        SpotifyWrapper(),
                         const SizedBox(height: 16),
                       ],
                     ),
