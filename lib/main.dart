@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:spotify_app/repo/auth_repository.dart';
 import 'package:spotify_app/screens/album/page/album_detail_screen.dart';
 import 'package:spotify_app/screens/login/page/login_screen.dart';
 import 'package:spotify_app/screens/playlist/page/playlist_detail_screen.dart';
@@ -18,13 +20,19 @@ import 'package:spotify_app/screens/signup/page/signup_email_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_name_screen.dart';
 import 'package:spotify_app/screens/signup/page/signup_password_screen.dart';
 import 'package:spotify_app/screens/splash/page/splash_screen.dart';
+import 'package:spotify_app/states/bloc/auth_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('Flutter');
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (_) => AuthCubit(AuthRepository()),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -51,8 +59,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
 
         '/signup/email': (context) => SignupEmailScreen(),
-        '/signup/password': (context) => SignupPasswordScreen(),
-        '/signup/name': (context) => SignupNameScreen(),
+        '/signup/password': (context) => SignupPasswordScreen(email: ''),
+        '/signup/name': (context) => SignupNameScreen(email: '', password: ''),
 
         '/login': (context) => LoginScreen(),
 

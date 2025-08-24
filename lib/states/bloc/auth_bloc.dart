@@ -82,6 +82,16 @@ class AuthCubit extends Cubit<AuthState> {
     await _authRepository.signOut();
     emit(Unauthenticated());
   }
+
+  // In your AuthCubit class
+  void checkAuthStatus() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      emit(Authenticated(user));
+    } else {
+      emit(Unauthenticated());
+    }
+  }
 }
 
 bool isEmailValid(String email) =>
